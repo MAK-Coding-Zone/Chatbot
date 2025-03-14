@@ -1,0 +1,957 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="chat-container">
+        <h1>AI Chatbot</h1>
+        <div id="chat-box"> -->
+            <!-- Chat messages will appear here -->
+        <!-- </div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div> -->
+
+    <!-- <script>
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            if (!userInput) return;
+
+            // Add user message to chat box
+            const chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML += `<div class="user-message">You: ${userInput}</div>`;
+
+            // Clear input field
+            document.getElementById('user-input').value = '';
+
+            // Send message to backend
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: userInput }),
+            });
+
+            const data = await response.json();
+            chatBox.innerHTML += `<div class="bot-message">Bot: ${data.reply}</div>`;
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to latest message
+        }
+    </script>
+</body>
+</html> -->
+<!-- 22222222222222222222222222
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot</title>
+    <style>
+        body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f9fafb;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Chat Container */
+.chat-container {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Chat Header */
+.chat-header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 16px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* Chat Box */
+#chat-box {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    background-color: #f9fafb;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Messages */
+.message {
+    display: flex;
+    max-width: 80%;
+}
+
+.message-content {
+    padding: 12px 16px;
+    border-radius: 12px;
+    word-wrap: break-word;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: #007bff;
+    color: #fff;
+    border-bottom-right-radius: 4px;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: #e9ecef;
+    color: #333;
+    border-bottom-left-radius: 4px;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #007bff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Input Container */
+.input-container {
+    display: flex;
+    padding: 12px;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    gap: 12px;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+input:disabled {
+    background-color: #f9fafb;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+button:disabled {
+    background-color: #a0c4ff;
+    cursor: not-allowed;
+}
+    </style> -->
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>AI Chatbot</h1>
+        </div>
+        <div id="chat-box"> -->
+            <!-- Chat messages will appear here -->
+        <!-- </div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off">
+            <button id="send-button" onclick="sendMessage()">Send</button>
+        </div>
+    </div> -->
+<!-- 
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            if (!userInput) return;
+
+            // Disable input and button while waiting for response
+            const inputField = document.getElementById('user-input');
+            const sendButton = document.getElementById('send-button');
+            inputField.disabled = true;
+            sendButton.disabled = true;
+
+            // Add user message to chat box
+            const chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML += `
+                <div class="message user-message">
+                    <div class="message-content">${userInput}</div>
+                </div>
+            `;
+
+            // Clear input field
+            inputField.value = '';
+
+            // Add loading spinner for bot response
+            chatBox.innerHTML += `
+                <div class="message bot-message">
+                    <div class="message-content loading-spinner">
+                        <div class="spinner"></div>
+                        <span>Thinking...</span>
+                    </div>
+                </div>
+            `;
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to latest message
+
+            // Send message to backend
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: userInput }),
+            });
+
+            const data = await response.json();
+
+            // Remove loading spinner and add bot reply
+            const loadingMessage = chatBox.querySelector('.loading-spinner');
+            loadingMessage.parentElement.innerHTML = `
+                <div class="message-content">${data.reply}</div>
+            `;
+
+            // Re-enable input and button
+            inputField.disabled = false;
+            sendButton.disabled = false;
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to latest message
+        }
+    </script>
+</body>
+</html> -->
+
+
+
+<!-- 3333333333333333 -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot</title>
+
+    <style>
+        /* General Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #343541;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+}
+
+/* App Container */
+.app-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background-color: #343541;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background-color: #202123;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.new-chat-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.new-chat-button:hover {
+    background-color: #0056b3;
+}
+
+/* Chat Interface */
+.chat-interface {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #343541;
+}
+
+#chat-box {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Messages */
+.message {
+    display: flex;
+    max-width: 80%;
+}
+
+.message-content {
+    padding: 12px 16px;
+    border-radius: 8px;
+    word-wrap: break-word;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: #007bff;
+    color: #fff;
+    border-bottom-right-radius: 4px;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: #444654;
+    color: #fff;
+    border-bottom-left-radius: 4px;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #007bff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Input Container */
+.input-container {
+    display: flex;
+    padding: 16px;
+    background-color: #40414f;
+    gap: 12px;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #555;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    background-color: #40414f;
+    color: #fff;
+}
+
+input:disabled {
+    background-color: #555;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+button:disabled {
+    background-color: #a0c4ff;
+    cursor: not-allowed;
+}
+    </style> -->
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container"> -->
+        <!-- Sidebar (Optional) -->
+        <!-- <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Chatbot</h2>
+            </div>
+            <div class="sidebar-menu">
+                <button class="new-chat-button">+ New Chat</button>
+            </div>
+        </div> -->
+
+        <!-- Main Chat Interface -->
+        <!-- <div class="chat-interface">
+            <div id="chat-box"> -->
+                <!-- Chat messages will appear here -->
+            <!-- </div>
+            <div class="input-container">
+                <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off">
+                <button id="send-button" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            if (!userInput) return;
+
+            // Disable input and button while waiting for response
+            const inputField = document.getElementById('user-input');
+            const sendButton = document.getElementById('send-button');
+            inputField.disabled = true;
+            sendButton.disabled = true;
+
+            // Add user message to chat box
+            const chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML += `
+                <div class="message user-message">
+                    <div class="message-content">${userInput}</div>
+                </div>
+            `;
+
+            // Clear input field
+            inputField.value = '';
+
+            // Add loading spinner for bot response
+            chatBox.innerHTML += `
+                <div class="message bot-message">
+                    <div class="message-content loading-spinner">
+                        <div class="spinner"></div>
+                        <span>Thinking...</span>
+                    </div>
+                </div>
+            `;
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to latest message
+
+            // Send message to backend
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: userInput }),
+            });
+
+            const data = await response.json();
+
+            // Remove loading spinner and add bot reply
+            const loadingMessage = chatBox.querySelector('.loading-spinner');
+            loadingMessage.parentElement.innerHTML = `
+                <div class="message-content">${data.reply}</div>
+            `;
+
+            // Re-enable input and button
+            inputField.disabled = false;
+            sendButton.disabled = false;
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to latest message
+        }
+    </script>
+</body>
+</html> -->
+
+
+
+<!-- 4444444444444444444444444444444444 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot</title>
+    <style>/* General Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+        }
+        
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #343541;
+            color: #fff;
+        }
+        
+        body.dark-mode .sidebar {
+            background-color: #202123;
+        }
+        
+        body.dark-mode .chat-interface {
+            background-color: #343541;
+        }
+        
+        body.dark-mode .input-container {
+            background-color: #40414f;
+        }
+        
+        body.dark-mode input {
+            background-color: #40414f;
+            color: #fff;
+        }
+        
+        /* Light Mode */
+        body.light-mode {
+            background-color: #f9fafb;
+            color: #333;
+        }
+        
+        body.light-mode .sidebar {
+            background-color: #fff;
+            border-right: 1px solid #ddd;
+        }
+        
+        body.light-mode .chat-interface {
+            background-color: #f9fafb;
+        }
+        
+        body.light-mode .input-container {
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+        }
+        
+        body.light-mode input {
+            background-color: #fff;
+            color: #333;
+        }
+        
+        /* App Container */
+        .app-container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .sidebar-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        #theme-toggle {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .new-chat-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 16px;
+        }
+        
+        .new-chat-button:hover {
+            background-color: #0056b3;
+        }
+        
+        .chat-history {
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .chat-history h3 {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+        
+        #chat-history-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        #chat-history-list li {
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        #chat-history-list li:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Chat Interface */
+        .chat-interface {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #chat-box {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        /* Messages */
+        .message {
+            display: flex;
+            max-width: 80%;
+        }
+        
+        .message-content {
+            padding: 12px 16px;
+            border-radius: 8px;
+            word-wrap: break-word;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .user-message {
+            align-self: flex-end;
+            background-color: #007bff;
+            color: #fff;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .bot-message {
+            align-self: flex-start;
+            background-color: #444654;
+            color: #fff;
+            border-bottom-left-radius: 4px;
+        }
+        
+        /* Loading Spinner */
+        .loading-spinner {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #007bff;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Input Container */
+        .input-container {
+            display: flex;
+            padding: 16px;
+            gap: 12px;
+        }
+        
+        input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .clear-all-button {
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.clear-all-button:hover {
+    background-color: #cc0000;
+}
+        
+        button:disabled {
+            background-color: #a0c4ff;
+            cursor: not-allowed;
+        }</style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="dark-mode">
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Chatbot</h2>
+                <button id="theme-toggle">🌙</button>
+            </div>
+            <div class="sidebar-menu">
+                <button class="new-chat-button" onclick="startNewChat()">+ New Chat</button>
+                <button class="clear-all-button" onclick="clearAllChats()">Clear All</button>
+            </div>
+            <div class="chat-history">
+                <h3>Chat History</h3>
+                <ul id="chat-history-list">
+                    <!-- Chat history items will appear here -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Chat Interface -->
+        <div class="chat-interface">
+            <div id="chat-box">
+                <!-- Chat messages will appear here -->
+            </div>
+            <div class="input-container">
+                <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off">
+                <button id="send-button" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let currentSessionId = null;
+
+        // Function to send a message
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            if (!userInput) return;
+
+            // Disable input and button while waiting for response
+            const inputField = document.getElementById('user-input');
+            const sendButton = document.getElementById('send-button');
+            inputField.disabled = true;
+            sendButton.disabled = true;
+
+            // Add user message to chat box
+            const chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML += `
+                <div class="message user-message">
+                    <div class="message-content">${userInput}</div>
+                </div>
+            `;
+
+            // Clear input field
+            inputField.value = '';
+
+            // Add loading spinner for bot response
+            chatBox.innerHTML += `
+                <div class="message bot-message">
+                    <div class="message-content loading-spinner">
+                        <div class="spinner"></div>
+                        <span>Thinking...</span>
+                    </div>
+                </div>
+            `;
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to latest message
+
+            // Send message to backend
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    session_id: currentSessionId,
+                    message: userInput 
+                }),
+            });
+
+            const data = await response.json();
+
+            // Remove loading spinner and add bot reply
+            const loadingMessage = chatBox.querySelector('.loading-spinner');
+            loadingMessage.parentElement.innerHTML = `
+                <div class="message-content">${data.reply}</div>
+            `;
+
+            // Re-enable input and button
+            inputField.disabled = false;
+            sendButton.disabled = false;
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to latest message
+
+            // Update chat history in sidebar
+            updateChatHistory();
+        }
+
+        // Function to start a new chat
+        async function startNewChat() {
+            currentSessionId = Date.now().toString(); // Use timestamp as session ID
+            const chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML = ''; // Clear chat box
+            document.getElementById('user-input').value = ''; // Clear input field
+            updateChatHistory();
+        }
+
+        // Function to update chat history in sidebar
+        async function updateChatHistory() {
+            const response = await fetch('/chat-sessions');
+            const sessions = await response.json();
+            const chatHistoryList = document.getElementById('chat-history-list');
+            chatHistoryList.innerHTML = ''; // Clear existing history
+
+            sessions.forEach(session => {
+                chatHistoryList.innerHTML += `
+                    <li onclick="loadChat('${session.id}')">${session.summary}</li>
+                `;
+            });
+        }
+
+        // Function to load a specific chat
+        async function loadChat(sessionId) {
+            currentSessionId = sessionId;
+            const response = await fetch(`/chat-history?session_id=${sessionId}`);
+            const chatHistory = await response.json();
+            const chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML = ''; // Clear chat box
+
+            chatHistory.forEach(msg => {
+                chatBox.innerHTML += `
+                    <div class="message ${msg.role}-message">
+                        <div class="message-content">${msg.content}</div>
+                    </div>
+                `;
+            });
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to latest message
+        }
+
+        // Function to clear all chat history
+        async function clearAllChats() {
+            await fetch('/clear-all-chats', { method: 'POST' });
+            currentSessionId = null;
+            updateChatHistory(); // Refresh the sidebar
+            const chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML = ''; // Clear chat box
+        }
+
+        // Function to toggle light/dark mode
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.getElementById('theme-toggle');
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                themeToggle.textContent = '☀️';
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                themeToggle.textContent = '🌙';
+            }
+        }
+
+        // Initialize theme toggle
+        document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+        // Load chat history on page load
+        window.onload = () => {
+            startNewChat(); // Start a new chat session by default
+            updateChatHistory(); // Load chat history in sidebar
+        };
+
+        // Send message on Enter key press
+        document.getElementById('user-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
